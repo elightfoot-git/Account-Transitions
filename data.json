@@ -1,0 +1,22 @@
+{
+  "lastUpdated": "2026-05-28 10:30 AM",
+  "kpis": {
+    "totalVolume": "1,240",
+    "activePipeline": "84",
+    "avgFirstTouch": "1.2 Days",
+    "slaMetPercentage": "94.2%"
+  },
+  "transitionTypes": {
+    "Ownership": 450,
+    "Restructure": 320,
+    "Express to RPOS": 210,
+    "RPOS to Express": 180,
+    "Migration": 80
+  },
+  "pipelineStatus": {
+    "Intake": 15,
+    "In Progress": 42,
+    "Under Review": 18,
+    "Blocked": 9
+  }
+}
