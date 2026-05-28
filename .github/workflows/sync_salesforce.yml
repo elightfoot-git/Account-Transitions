@@ -1,0 +1,41 @@
+name: Sync Salesforce Data
+
+on:
+  schedule:
+    # This runs the script every day at 8:00 AM UTC (Adjust as needed)
+    - cron: '0 8 * * *'
+  workflow_dispatch: # Allows you to also trigger it manually with a button click
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install Dependencies
+      run: |
+        pip install simple-salesforce
+
+    - name: Run Sync Script
+      env:
+        SF_USERNAME: ${{ secrets.SF_USERNAME }}
+        SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
+        SF_SECURITY_TOKEN: ${{ secrets.SF_SECURITY_TOKEN }}
+        SF_CONSUMER_KEY: ${{ secrets.SF_CONSUMER_KEY }}
+        SF_CONSUMER_SECRET: ${{ secrets.SF_CONSUMER_SECRET }}
+      run: python sync_data.py
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+        git add data.json
+        git commit -m "Auto-updated dashboard data from Salesforce [skip ci]" || exit 0
+        git push
